@@ -1,0 +1,146 @@
+mysql> use student;
+Database changed
+mysql> select mark;
+ERROR 1054 (42S22): Unknown column 'mark' in 'field list'
+mysql> select * from mark;
++-------+--------+-------+---------+
+| regno | name   | marks | subject |
++-------+--------+-------+---------+
+| 56789 | mahesh |    99 | DBMS    |
++-------+--------+-------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into mark values('12345','keerthanaa','98','DBMS');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from mark;
++-------+------------+-------+---------+
+| regno | name       | marks | subject |
++-------+------------+-------+---------+
+| 56789 | mahesh     |    99 | DBMS    |
+| 12345 | keerthanaa |    98 | DBMS    |
++-------+------------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> insert into mark values ('23456','somu','97','DBMS');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from mark;
++-------+------------+-------+---------+
+| regno | name       | marks | subject |
++-------+------------+-------+---------+
+| 56789 | mahesh     |    99 | DBMS    |
+| 12345 | keerthanaa |    98 | DBMS    |
+| 23456 | somu       |    97 | DBMS    |
++-------+------------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> insert into mark values('32345','koushik','97','DBMS');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from mark;
++-------+------------+-------+---------+
+| regno | name       | marks | subject |
++-------+------------+-------+---------+
+| 56789 | mahesh     |    99 | DBMS    |
+| 12345 | keerthanaa |    98 | DBMS    |
+| 23456 | somu       |    97 | DBMS    |
+| 32345 | koushik    |    97 | DBMS    |
++-------+------------+-------+---------+
+4 rows in set (0.00 sec)
+
+mysql> insert into mark values ('83456','lokesh','97','DBMS');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from mark;
++-------+------------+-------+---------+
+| regno | name       | marks | subject |
++-------+------------+-------+---------+
+| 56789 | mahesh     |    99 | DBMS    |
+| 12345 | keerthanaa |    98 | DBMS    |
+| 23456 | somu       |    97 | DBMS    |
+| 32345 | koushik    |    97 | DBMS    |
+| 83456 | lokesh     |    97 | DBMS    |
++-------+------------+-------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select *from mark where marks between 99 and 98;
+Empty set (0.00 sec)
+
+mysql> select *from mark where marks between 97 and 99;
++-------+------------+-------+---------+
+| regno | name       | marks | subject |
++-------+------------+-------+---------+
+| 56789 | mahesh     |    99 | DBMS    |
+| 12345 | keerthanaa |    98 | DBMS    |
+| 23456 | somu       |    97 | DBMS    |
+| 32345 | koushik    |    97 | DBMS    |
+| 83456 | lokesh     |    97 | DBMS    |
++-------+------------+-------+---------+
+5 rows in set (0.01 sec)
+
+mysql> select *from mark where marks between 98 and 99;
++-------+------------+-------+---------+
+| regno | name       | marks | subject |
++-------+------------+-------+---------+
+| 56789 | mahesh     |    99 | DBMS    |
+| 12345 | keerthanaa |    98 | DBMS    |
++-------+------------+-------+---------+
+2 rows in set (0.00 sec)
+mysql> select count(name
+    -> ) from student;
++--------------+
+| count(name
+) |
++--------------+
+|            3 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select sum
+    -> (marks) from mark;
+ERROR 1630 (42000): FUNCTION student.sum does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select * from mark;
++-------+------------+-------+---------+
+| regno | name       | marks | subject |
++-------+------------+-------+---------+
+| 56789 | mahesh     |    99 | DBMS    |
+| 12345 | keerthanaa |    98 | DBMS    |
+| 23456 | somu       |    97 | DBMS    |
+| 32345 | koushik    |    97 | DBMS    |
+| 83456 | lokesh     |    97 | DBMS    |
++-------+------------+-------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select sum(marks) from mark;
++------------+
+| sum(marks) |
++------------+
+|        488 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select max(marks) from mark;
++------------+
+| max(marks) |
++------------+
+|         99 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select min(marks) from mark;
++------------+
+| min(marks) |
++------------+
+|         97 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(marks) from mark;
++------------+
+| avg(marks) |
++------------+
+|    97.6000 |
++------------+
+1 row in set (0.00 sec)
+

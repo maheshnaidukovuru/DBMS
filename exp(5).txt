@@ -1,0 +1,47 @@
+
+mysql> use student;
+Database changed
+mysql> selecy * from student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selecy * from student' at line 1
+mysql> select * from student;
++-------+------------+--------+------------+-----------+
+| regno | name       | gender | dob        | mobileno  |
++-------+------------+--------+------------+-----------+
+|  5678 | keerthanaa | F      | 2005-05-29 | 990077665 |
+|  5785 | mahesh     | M      | 2004-01-11 | 999889988 |
+|  9955 | prabhas    | M      | 1988-12-12 | 990998990 |
++-------+------------+--------+------------+-----------+
+3 rows in set (0.02 sec)
+
+mysql> select * from student where regno='5678';
++-------+------------+--------+------------+-----------+
+| regno | name       | gender | dob        | mobileno  |
++-------+------------+--------+------------+-----------+
+|  5678 | keerthanaa | F      | 2005-05-29 | 990077665 |
++-------+------------+--------+------------+-----------+
+1 row in set (0.02 sec)
+
+mysql> select * from student where gender='M';
++-------+---------+--------+------------+-----------+
+| regno | name    | gender | dob        | mobileno  |
++-------+---------+--------+------------+-----------+
+|  5785 | mahesh  | M      | 2004-01-11 | 999889988 |
+|  9955 | prabhas | M      | 1988-12-12 | 990998990 |
++-------+---------+--------+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student where regno='5785';
++-------+--------+--------+------------+-----------+
+| regno | name   | gender | dob        | mobileno  |
++-------+--------+--------+------------+-----------+
+|  5785 | mahesh | M      | 2004-01-11 | 999889988 |
++-------+--------+--------+------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name like '%sh';
++-------+--------+--------+------------+-----------+
+| regno | name   | gender | dob        | mobileno  |
++-------+--------+--------+------------+-----------+
+|  5785 | mahesh | M      | 2004-01-11 | 999889988 |
++-------+--------+--------+------------+-----------+
+1 row in set (0.00 sec)

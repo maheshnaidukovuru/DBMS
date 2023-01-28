@@ -1,0 +1,60 @@
+mysql> select * from mark order by name;
++-------+------------+-------+---------+
+| regno | name       | marks | subject |
++-------+------------+-------+---------+
+| 12345 | keerthanaa |    98 | DBMS    |
+| 32345 | koushik    |    97 | DBMS    |
+| 83456 | lokesh     |    97 | DBMS    |
+| 56789 | mahesh     |    99 | DBMS    |
+| 23456 | somu       |    97 | DBMS    |
++-------+------------+-------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from mark group by name;
++-------+------------+-------+---------+
+| regno | name       | marks | subject |
++-------+------------+-------+---------+
+| 12345 | keerthanaa |    98 | DBMS    |
+| 32345 | koushik    |    97 | DBMS    |
+| 83456 | lokesh     |    97 | DBMS    |
+| 56789 | mahesh     |    99 | DBMS    |
+| 23456 | somu       |    97 | DBMS    |
++-------+------------+-------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from mark group by marks;
++-------+------------+-------+---------+
+| regno | name       | marks | subject |
++-------+------------+-------+---------+
+| 23456 | somu       |    97 | DBMS    |
+| 12345 | keerthanaa |    98 | DBMS    |
+| 56789 | mahesh     |    99 | DBMS    |
++-------+------------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select name,marks,regno from mark order by regno;;
++------------+-------+-------+
+| name       | marks | regno |
++------------+-------+-------+
+| keerthanaa |    98 | 12345 |
+| somu       |    97 | 23456 |
+| koushik    |    97 | 32345 |
+| mahesh     |    99 | 56789 |
+| lokesh     |    97 | 83456 |
++------------+-------+-------+
+5 rows in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> select name,marks,regno from mark order by regno desc;
++------------+-------+-------+
+| name       | marks | regno |
++------------+-------+-------+
+| lokesh     |    97 | 83456 |
+| mahesh     |    99 | 56789 |
+| koushik    |    97 | 32345 |
+| somu       |    97 | 23456 |
+| keerthanaa |    98 | 12345 |
++------------+-------+-------+
+5 rows in set (0.00 sec)
