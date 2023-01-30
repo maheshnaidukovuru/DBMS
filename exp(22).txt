@@ -1,0 +1,206 @@
+mysql> create database book_publishing_company;
+Database created
+mysql> use book_publishing_company;
+Database changed
+mysql> create table book(book_id int(8),name varchar(20),book_name varchar(20),genre varchar(10));
+Query OK, 0 rows affected (0.05 sec)
+mysql> desc book;
++-----------+-------------+------+--------+-------+
+| Field     | Type        | Null |Default | Extra |
++-----------+-------------+------+--------+-------+
+| book_id   | int(9)      | NO   |0       |       |
+| name      | varchar(20) | YES  |NULL    |       |
+| book_name | varchar(20) | YES  |NULL    |       |
+| genre     | varchar(10) | YES  |NULL    |       |
++-----------+-------------+------+--------+-------+
+4 rows in set (0.05 sec)
+mysql> create table store(book_id int(9),book_name varchar(20),storename varchar(10),quantity int(10));
+Query OK, 0 rows affected (0.05 sec)
+mysql> desc store;
++-----------+-------------+------+--------+-------+
+| Field     | Type        | Null |Default | Extra |
++-----------+-------------+------+--------+-------+
+| book_id   | int(9)      | YES  |NULL    |       |
+| book_name | varchar(20) | YES  |NULL    |       |
+| storename | varchar(10) | YES  |NULL    |       |
+| quantity  | int(10)     | YES  |NULL    |       |
++-----------+-------------+------+--------+-------+
+4 rows in set (0.03 sec)
+mysql> alter table book add primary key (book_id);
+Query OK, 1 row affected (0.06 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+mysql> desc book;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| book_id   | int(9)      | NO   | PRI | 0       |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| book_name | varchar(20) | YES  |     | NULL    |       |
+| genre     | varchar(10) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.05 sec)
+
+mysql> alter table store add foreign key (regno) references book(book_id);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> desc store;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| book_id   | int(9)      | YES  | MUL | NULL    |       |
+| book_name | varchar(20) | YES  |     | NULL    |       |
+| storename | varchar(10) | YES  |     | NULL    |       |
+| quantity  | int(10)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+mysql> select * from store;
++---------+-------------+-----------+----------+
+| book_id | book_name   | storename | quantity |
++---------+-------------+-----------+----------+
+|   76832 | sweetvalley | minafancy |      120 |
++---------+-------------+-----------+----------+
+1 row in set (0.00 sec)
+
+mysql> select * from book;
++---------+-------------+-------------+--------+
+| book_id | name        | book_name   | genre  |
++---------+-------------+-------------+--------+
+|   43564 | mahesh | twinkle     | comedy |
+|   76832 | koushik   | sweetvalley | drama  |
++---------+-------------+-------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into store values('43564','tinkle','writersplace','540');
+ERROR 1406 (22001): Data too long for column 'storename' at row 1
+mysql> insert into store values('43564','tinkle','writers','540');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into book values('54376','somu','harrypotter','suspense');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into book values('54376','harrypotter','rajastores','600');
+ERROR 1062 (23000): Duplicate entry '54376' for key 'PRIMARY'
+mysql> insert into store values('54376','harrypotter','rajastores','600');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from store;
++---------+-------------+------------+----------+
+| book_id | book_name   | storename  | quantity |
++---------+-------------+------------+----------+
+|   76832 | sweetvalley | minafancy  |      120 |
+|   43564 | tinkle      | writers    |      540 |
+|   54376 | harrypotter | rajastores |      600 |
++---------+-------------+------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from book;
++---------+-------------+-------------+----------+
+| book_id | name        | book_name   | genre    |
++---------+-------------+-------------+----------+
+|   43564 | mahesh | twinkle     | comedy   |
+|   54376 | somu  | harrypotter | suspense |
+|   76832 | koushik   | sweetvalley | drama    |
++---------+-------------+-------------+----------+
+3 rows in set (0.00 sec)
+mysql> update store store
+    -> set storename='bookfair' where book_name='tinkle';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select* from store;
++---------+-------------+------------+----------+
+| book_id | book_name   | storename  | quantity |
++---------+-------------+------------+----------+
+|   76832 | sweetvalley | minafancy  |      120 |
+|   43564 | tinkle      | bookfair   |      540 |
+|   54376 | harrypotter | rajastores |      600 |
++---------+-------------+------------+----------+
+3 rows in set (0.00 sec)
+mysql> insert into book values ('672','riya','loveus','romance');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from book;
++---------+-------------+-------------+----------+
+| book_id | name        | book_name   | genre    |
++---------+-------------+-------------+----------+
+|     672 | riya        | loveus      | romance  |
+|   43564 | mahesh | twinkle     | comedy   |
+|   54376 | somu  | harrypotter | suspense |
+|   76832 | koushik   | sweetvalley | drama    |
++---------+-------------+-------------+----------+
+4 rows in set (0.00 sec)
+mysql> delete from store where name='riya';
+ERROR 1054 (42S22): Unknown column 'name' in 'where clause'
+mysql> delete from book where name='riya';
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from book;
++---------+-------------+-------------+----------+
+| book_id | name        | book_name   | genre    |
++---------+-------------+-------------+----------+
+|   43564 | mahesh | twinkle     | comedy   |
+|   54376 | somu  | harrypotter | suspense |
+|   76832 | koushik   | sweetvalley | drama    |
++---------+-------------+-------------+----------+
+3 rows in set (0.00 sec)
+mysql> SELECT * FROM book;
++---------+-------------+-------------+----------+
+| book_id | name        | book_name   | genre    |
++---------+-------------+-------------+----------+
+|   43564 | mahesh | twinkle     | comedy   |
+|   54376 | somu  | harrypotter | suspense |
+|   76832 | koushik   | sweetvalley | drama    |
++---------+-------------+-------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select from book where name like '%mu';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from book where name like '%AA'' at line 1
+mysql> select * from book where name like '%mu';
++---------+------------+-------------+----------+
+| book_id | name       | book_name   | genre    |
++---------+------------+-------------+----------+
+|   54376 | somu        | harrypotter | suspense |
++---------+------------+-------------+----------+
+1 row in set (0.00 sec)
+
+mysql> select * from book where name not like '%mu';
++---------+-------------+-------------+--------+
+| book_id | name        | book_name   | genre  |
++---------+-------------+-------------+--------+
+|   43564 | mahesh | twinkle     | comedy |
+|   76832 | koushik   | sweetvalley | drama  |
++---------+-------------+-------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from book where name like '%sh';
++---------+-------------+-------------+--------+
+| book_id | name        | book_name   | genre  |
++---------+-------------+-------------+--------+
+|   43564 | mahesh | twinkle     | comedy |
++---------+-------------+-------------+--------+
+2 rows in set (0.00 sec)
+mysql> select * from book where book_id between 43564 and 54376;
++---------+-------------+-------------+----------+
+| book_id | name        | book_name   | genre    |
++---------+-------------+-------------+----------+
+|   43564 | mahesh | twinkle     | comedy   |
+|   54376 | koushik  | harrypotter | suspense |
++---------+-------------+-------------+----------+
+2 rows in set (0.00 sec)
+mysql> select * from book where genre=comedy;
+ERROR 1054 (42S22): Unknown column 'comedy' in 'where clause'
+mysql> select * from book where genre='comedy';
++---------+-------------+-----------+--------+
+| book_id | name        | book_name | genre  |
++---------+-------------+-----------+--------+
+|   43564 | mahesh | twinkle   | comedy |
++---------+-------------+-----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select book_name from book where genre='suspense';
++-------------+
+| book_name   |
++-------------+
+| harrypotter |
++-------------+
+1 row in set (0.00 sec)
