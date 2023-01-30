@@ -1,0 +1,43 @@
+mysql> select * from data;
++-------+------------+----------------+--------+-----------------+
+| regno | name       | purchased_item | amount | tracking_status |
++-------+------------+----------------+--------+-----------------+
+|   129 | lokesh   | watch          |   1000 | delivered       |
+|   178 | naveen | phone        |    500 | delivered       |
+|   130 | somu      | bikecover      |   1250 | shipping        |
+|  1290 | mahesh     | bracelet       |    700 | shipping        |
+|  7680 | krishna    | phonecover     |   2000 | delivered       |
+|  8960 | koushik  | shoes      |   1700 | shipping        |
++-------+------------+----------------+--------+-----------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from details;
++-------+----------------+
+| regno | purchased_date |
++-------+----------------+
+|   129 | 2020-02-18     |
+|   178 | 2021-06-13     |
+|   130 | 2023-01-23     |
+|  1290 | 2022-04-24     |
+|  8960 | 2021-04-03     |
+|  7680 | 2021-05-17     |
++-------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> select data.regno,details.purchased_date,data.amount
+    -> from data
+    -> inner join data on details.regno=data.regno;
+ERROR 1066 (42000): Not unique table/alias: 'data'
+mysql> select details.regno, data.name, details.purchased_date from details
+    -> inner join data on details.regno=data.regno;
++-------+------------+----------------+
+| regno | name       | purchased_date |
++-------+------------+----------------+
+|   129 | lokesh   | 2020-02-18     |
+|   178 | naveen | 2021-06-13     |
+|   130 | somu      | 2023-01-23     |
+|  1290 | mahesh     | 2022-04-24     |
+|  7680 | krishna    | 2021-05-17     |
+|  8960 | koushik  | 2021-04-03     |
++-------+------------+----------------+
+6 rows in set (0.00 sec)

@@ -1,0 +1,157 @@
+mysql> select * from data;
++-------+------------+----------------+--------+-----------------+
+| regno | name       | purchased_item | amount | tracking_status |
++-------+------------+----------------+--------+-----------------+
+|   129 | lokesh  | watch          |   1000 | delivered       |
+|   178 | naveen     | phone       |    500 | delivered       |
+|   130 | somu      | bikecover      |   1250 | shipping        |
+|  1290 | mahesh      | bracelet       |    700 | shipping        |
+|  7680 | krishna    | phonecover     |   2000 | delivered       |
+|  8960 | koushik      | shoes      |   1700 | shipping        |
++-------+------------+----------------+--------+-----------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from details
+    -> ;
++-------+----------------+
+| regno | purchased_date |
++-------+----------------+
+|   129 | 2020-02-18     |
+|   178 | 2021-06-13     |
+|   130 | 2023-01-23     |
+|  1290 | 2022-04-24     |
+|  8960 | 2021-04-03     |
+|  7680 | 2021-05-17     |
++-------+----------------+
+6 rows in set (0.01 sec)
+
+mysql> create view order as select name, amount from data
+    -> order by name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order as select name, amount from data
+order by name' at line 1
+mysql> create view details as select name,amount from data order by name;
+ERROR 1050 (42S01): Table 'details' already exists
+mysql> create view orderdetails as select name,amount from data order by name;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from orderdetails;
++------------+--------+
+| name       | amount |
++------------+--------+
+| koushik       |   1700 |
+| naveen     |    500 |
+| krishna    |   2000 |
+| mahesh      |    700 |
+| lokesh  |   1000 |
+| somu       |   1250 |
++------------+--------+
+6 rows in set (0.01 sec)
+
+mysql> create index orderid on data(regno);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from data;
++-------+------------+----------------+--------+-----------------+
+| regno | name       | purchased_item | amount | tracking_status |
++-------+------------+----------------+--------+-----------------+
+|   129 | lokesh  | watch          |   1000 | delivered       |
+|   178 | naveen     | phone       |    500 | delivered       |
+|   130 | somu       | bikecover      |   1250 | shipping        |
+|  1290 | mahesh      | bracelet       |    700 | shipping        |
+|  7680 | krishna    | phonecover     |   2000 | delivered       |
+|  8960 | koushik       | shoes      |   1700 | shipping        |
++-------+------------+----------------+--------+-----------------+
+6 rows in set (0.00 sec)
+ 43  
+EXP 8 DB.txt
+@@ -0,0 +1,43 @@
+mysql> select * from data;m
++-------+------------+----------------+--------+-----------------+
+| regno | name       | purchased_item | amount | tracking_status |
++-------+------------+----------------+--------+-----------------+
+|   129 | lokesh  | watch          |   1000 | delivered       |
+|   178 | naveen     |   phone     |    500 | delivered       |
+|   130 | somu       | bikecover      |   1250 | shipping        |
+|  1290 | mahesh      | bracelet       |    700 | shipping        |
+|  7680 | krishna    | phonecover     |   2000 | delivered       |
+|  8960 | koushik      | shoes      |   1700 | shipping        |
++-------+------------+----------------+--------+-----------------+
+6 rows in set (0.00 sec)
+
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'm' at line 1
+mysql> select * from data where regno in(select regno from data where amount>1000);
++-------+-----------+----------------+--------+-----------------+
+| regno | name      | purchased_item | amount | tracking_status |
++-------+-----------+----------------+--------+-----------------+
+|   130 | somu     | bikecover      |   1250 | shipping        |
+|  7680 | krishna   | phonecover     |   2000 | delivered       |
+|  8960 | koushik     | shoes     |   1700 | shipping        |
++-------+-----------+----------------+--------+-----------------+
+3 rows in set (0.00 sec)
+mysql> select * from data where regno in(select regno from data where tracking_status='delivered');
++-------+------------+----------------+--------+-----------------+
+| regno | name       | purchased_item | amount | tracking_status |
++-------+------------+----------------+--------+-----------------+
+|   129 | lokesh  | watch          |   1000 | delivered       |
+|   178 | naveen     | phone       |    500 | delivered       |
+|  7680 | krishna    | phonecover     |   2000 | delivered       |
++-------+------------+----------------+--------+-----------------+
+3 rows in set (0.00 sec)
+mysql> select name,purchased_item,amount from data where amount>(select avg(amount) from data where amount=data.amount);
++-----------+----------------+--------+
+| name      | purchased_item | amount |
++-----------+----------------+--------+
+| somu     | bikecover      |   1250 |
+| krishna   | phonecover     |   2000 |
+| koushik     | shoes       |   1700 |
++-----------+----------------+--------+
+3 rows in set (0.01 sec)
+
+ 43  
+EXP 9 DB.txt
+@@ -0,0 +1,43 @@
+mysql> select * from data;
++-------+------------+----------------+--------+-----------------+
+| regno | name       | purchased_item | amount | tracking_status |
++-------+------------+----------------+--------+-----------------+
+|   129 | lokesh  | watch          |   1000 | delivered       |
+|   178 | naveen     | phone       |    500 | delivered       |
+|   130 | somu      | bikecover      |   1250 | shipping        |
+|  1290 | mahesh       | bracelet       |    700 | shipping        |
+|  7680 | krishna    | phonecover     |   2000 | delivered       |
+|  8960 | koushik      | shoes       |   1700 | shipping        |
++-------+------------+----------------+--------+-----------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from details;
++-------+----------------+
+| regno | purchased_date |
++-------+----------------+
+|   129 | 2020-02-18     |
+|   178 | 2021-06-13     |
+|   130 | 2023-01-23     |
+|  1290 | 2022-04-24     |
+|  8960 | 2021-04-03     |
+|  7680 | 2021-05-17     |
++-------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> select data.regno,details.purchased_date,data.amount
+    -> from data
+    -> inner join data on details.regno=data.regno;
+ERROR 1066 (42000): Not unique table/alias: 'data'
+mysql> select details.regno, data.name, details.purchased_date from details
+    -> inner join data on details.regno=data.regno;
++-------+------------+----------------+
+| regno | name       | purchased_date |
++-------+------------+----------------+
+|   129 | lokesh  | 2020-02-18     |
+|   178 | naveen     | 2021-06-13     |
+|   130 | somu       | 2023-01-23     |
+|  1290 | mahesh      | 2022-04-24     |
+|  7680 | krishna    | 2021-05-17     |
+|  8960 | koushik      | 2021-04-03     |
++-------+------------+----------------+
+6 rows in set (0.00 sec)
