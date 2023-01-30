@@ -1,0 +1,230 @@
+mysql> use hospital;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table doc(dname varchar(30),qualification varchar(30),salary int(10));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table patient(pname varchar(30),age int(3), gender varchar(1),dname varchar(30));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc doc;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| dname         | varchar(30) | YES  |     | NULL    |       |
+| qualification | varchar(30) | YES  |     | NULL    |       |
+| salary        | int(10)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.03 sec)
+
+mysql> desc patient;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| pname  | varchar(30) | YES  |     | NULL    |       |
+| age    | int(3)      | YES  |     | NULL    |       |
+| gender | varchar(1)  | YES  |     | NULL    |       |
+| dname  | varchar(30) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+mysql> alter table doc add primary key (dname);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table patient add foreign key (dname) references doc(dname);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> desc doc;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| dname         | varchar(30) | NO   | PRI |         |       |
+| qualification | varchar(30) | YES  |     | NULL    |       |
+| salary        | int(10)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.08 sec)
+
+mysql> desc patient;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| pname  | varchar(30) | YES  |     | NULL    |       |
+| age    | int(3)      | YES  |     | NULL    |       |
+| gender | varchar(1)  | YES  |     | NULL    |       |
+| dname  | varchar(30) | YES  | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+mysql> insert into doc values ('mahesh.M.A','gynaecologist','120000');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into doc values ('koushik','physician','100000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into doc values ('AUXI JOE','head nurse','75000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into doc values ('somu','psychologist','70000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into doc values ('RITHIKA','surgeon','150000');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into doc values ('SANTHOSH','neurologist','150000');
+Query OK, 1 row affected (0.01 sec)
+mysql> select * from doc;
++--------------+---------------+--------+
+| dname        | qualification | salary |
++--------------+---------------+--------+
+| AUXI JOE     | head nurse    |  75000 |
+| somu   | psychologist  |  70000 |
+| mahesh.M.A | gynaecologist | 120000 |
+| RITHIKA      | surgeon       | 150000 |
+| SANTHOSH     | neurologist   | 150000 |
+| koushik        | physician     | 100000 |
++--------------+---------------+--------+
+6 rows in set (0.00 sec)
+mysql> update doc set dname='ROSHAN KUMAR' where qualification='physician';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from doc;
++--------------+---------------+--------+
+| dname        | qualification | salary |
++--------------+---------------+--------+
+| AUXI JOE     | head nurse    |  75000 |
+| somu   | psychologist  |  70000 |
+| mahesh.M.A | gynaecologist | 120000 |
+| RITHIKA      | surgeon       | 150000 |
+| ROSHAN KUMAR | physician     | 100000 |
+| SANTHOSH     | neurologist   | 150000 |
++--------------+---------------+--------+
+6 rows in set (0.00 sec)
+mysql> insert into patient values('JOHN','54','M','AUXI JOE'),('SALLY','25','F','RITHIKA'),('CAROLINE','21','F','KEERTHANAA'),('SHAMITHA','20','F','KEERTHANAA'),('ARUN KUMAR','34','M','SANTHOSH'),('VIGNESH','12','M','ROSHAN KUMAR'),('NIKITHA','45','F','KRITHIKA.M.A'),('ARAVIND','29','M','RITHIKA');
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select * from patient;
++------------+------+--------+--------------+
+| pname      | age  | gender | dname        |
++------------+------+--------+--------------+
+| JOHN       |   54 | M      | AUXI JOE     |
+| SALLY      |   25 | F      | RITHIKA      |
+| CAROLINE   |   21 | F      | somu   |
+| SHAMITHA   |   20 | F      | somu   |
+| ARUN KUMAR |   34 | M      | SANTHOSH     |
+| VIGNESH    |   12 | M      | ROSHAN KUMAR |
+| NIKITHA    |   45 | F      | mahesh.M.A |
+| ARAVIND    |   29 | M      | RITHIKA      |
++------------+------+--------+--------------+
+8 rows in set (0.00 sec)
+mysql> select pname,dname from patient order by age
+    -> ;
++------------+--------------+
+| pname      | dname        |
++------------+--------------+
+| VIGNESH    | ROSHAN KUMAR |
+| SHAMITHA   | somu   |
+| CAROLINE   | somu   |
+| SALLY      | RITHIKA      |
+| ARAVIND    | RITHIKA      |
+| ARUN KUMAR | SANTHOSH     |
+| NIKITHA    | mahesh.M.A |
+| JOHN       | AUXI JOE     |
++------------+--------------+
+8 rows in set (0.00 sec)
+
+mysql> select count(name) from doc;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select count(dname) from doc;
++--------------+
+| count(dname) |
++--------------+
+|            6 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select pname,dname from patient where dname='somu';
++----------+------------+
+| pname    | dname      |
++----------+------------+
+| CAROLINE | somu |
+| SHAMITHA | somu |
++----------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select pname,dname from patient where dname='mahesh.M.A';
++---------+--------------+
+| pname   | dname        |
++---------+--------------+
+| NIKITHA | mahesh.M.A |
++---------+--------------+
+1 row in set (0.00 sec)
+mysql> select pname, age from patient where pname like '%HA';
++----------+------+
+| pname    | age  |
++----------+------+
+| SHAMITHA |   20 |
+| NIKITHA  |   45 |
++----------+------+
+2 rows in set (0.00 sec)
+mysql> select min(salary) from doc;
++-------------+
+| min(salary) |
++-------------+
+|       70000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select name,max(salary) from doc;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select dname,max(salary) from doc;
++----------+-------------+
+| dname    | max(salary) |
++----------+-------------+
+| AUXI JOE |      150000 |
++----------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from doc;
++-------------+
+| sum(salary) |
++-------------+
+|      665000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary) from doc;
++-------------+
+| avg(salary) |
++-------------+
+| 110833.3333 |
++-------------+
+1 row in set (0.01 sec)
+mysql> select * from patient where age between 10 and 40;
++------------+------+--------+--------------+
+| pname      | age  | gender | dname        |
++------------+------+--------+--------------+
+| SALLY      |   25 | F      | RITHIKA      |
+| CAROLINE   |   21 | F      | somu   |
+| SHAMITHA   |   20 | F      | somu   |
+| ARUN KUMAR |   34 | M      | SANTHOSH     |
+| VIGNESH    |   12 | M      | ROSHAN KUMAR |
+| ARAVIND    |   29 | M      | RITHIKA      |
++------------+------+--------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from patient where age between 10 and 40 group by pname;
++------------+------+--------+--------------+
+| pname      | age  | gender | dname        |
++------------+------+--------+--------------+
+| ARAVIND    |   29 | M      | RITHIKA      |
+| ARUN KUMAR |   34 | M      | SANTHOSH     |
+| CAROLINE   |   21 | F      | somu   |
+| SALLY      |   25 | F      | RITHIKA      |
+| SHAMITHA   |   20 | F      | somu   |
+| VIGNESH    |   12 | M      | ROSHAN KUMAR |
++------------+------+--------+--------------+
+6 rows in set (0.02 sec)
