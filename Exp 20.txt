@@ -1,0 +1,21 @@
+mysql> use collage;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_collage |
++-------------------+
+| javalab           |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> desc javalab;
++---------+----------+------+-----+---------+-------+
+| Field   | Type     | Null | Key | Default | Extra |
++---------+----------+------+-----+---------+-------+
+| name    | tinytext | YES  |     | NULL    |       |
+| surname | tinytext | YES  |     | NULL    |       |
+| city    | tinytext | YES  |     | NULL    |       |
++---------+----------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql>
