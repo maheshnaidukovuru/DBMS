@@ -1,0 +1,25 @@
+
+mysql> use collage;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_collage |
++-------------------+
+| javalab           |
+| myguests          |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> desc myguests;
++-----------+-----------------+------+-----+-------------------+-----------------------------+
+| Field     | Type            | Null | Key | Default           | Extra                       |
++-----------+-----------------+------+-----+-------------------+-----------------------------+
+| id        | int(6) unsigned | NO   | PRI | NULL              | auto_increment              |
+| firstname | varchar(30)     | NO   |     | NULL              |                             |
+| lastname  | varchar(30)     | NO   |     | NULL              |                             |
+| email     | varchar(50)     | YES  |     | NULL              |                             |
+| reg_date  | timestamp       | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
++-----------+-----------------+------+-----+-------------------+-----------------------------+
+5 rows in set (0.01 sec)
+
+mysql>

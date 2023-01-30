@@ -1,0 +1,542 @@
+mysql> create database student;
+ERROR 1007 (HY000): Can't create database 'student'; database exists
+mysql> use student;
+Database changed
+mysql> create student(Regno int(3),name varchar(15),gender varchar(1),DOB DATE,mobileno int(10),city varchar(15));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'student(Regno int(3),name varchar(15),gender varchar(1),DOB DATE,mobileno int(10' at line 1
+mysql> create student(Regno int(3),name varchar(15),gender varchar(1),dob DATE,mobileno int(10),city varchar(15));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'student(Regno int(3),name varchar(15),gender varchar(1),dob DATE,mobileno int(10' at line 1
+mysql> create table student(Regno int(3),name varchar(15),gender varchar(1),dob DATE,mobileno int(10),city varchar(15));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Regno    | int(3)      | YES  |     | NULL    |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| gender   | varchar(1)  | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| mobileno | int(10)     | YES  |     | NULL    |       |
+| city     | varchar(15) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+
+mysql> ALTER TABLE student
+    -> ALTER name varchar(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(20)' at line 2
+mysql> ALTER TABLE student;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> ALTER TABLE student
+    -> ADD name varchar(20);
+ERROR 1060 (42S21): Duplicate column name 'name'
+mysql> ALTER TABLE student
+    -> ADD emis int(30);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE student
+    -> DROP COLOUMN city;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'city' at line 2
+mysql> ALTER TABLE student
+    -> DROP COLOUMN city varchar(15);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'city varchar(15)' at line 2
+mysql> ALTER TABLE student
+    -> DROP COLUMN city;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> TRUNCATE TABLE student;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Regno    | int(3)      | YES  |     | NULL    |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| gender   | varchar(1)  | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| mobileno | int(10)     | YES  |     | NULL    |       |
+| emis     | int(30)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+
+mysql> ALTER TABLE student
+    -> TRUNCATE TABLE student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLE student' at line 2
+mysql> ALTER TABLE student
+    -> SELECT * FROM student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT * FROM student' at line 2
+mysql> SELECT * FROM student;
+Empty set (0.00 sec)
+
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Regno    | int(3)      | YES  |     | NULL    |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| gender   | varchar(1)  | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| mobileno | int(10)     | YES  |     | NULL    |       |
+| emis     | int(30)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+mysql> insert into student values ('1234','KEERTHANAA','F','2005-05-29','944565599','26346282');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> desc sudent;
+ERROR 1146 (42S02): Table 'student.sudent' doesn't exist
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Regno    | int(3)      | YES  |     | NULL    |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| gender   | varchar(1)  | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| mobileno | int(10)     | YES  |     | NULL    |       |
+| emis     | int(30)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+
+mysql> select * from student;
++-------+------------+--------+------------+-----------+----------+
+| Regno | name       | gender | dob        | mobileno  | emis     |
++-------+------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA | F      | 2005-05-29 | 944565599 | 26346282 |
++-------+------------+--------+------------+-----------+----------+
+1 row in set (0.00 sec)
+mysql> ALTER TABLE STUDENT
+    -> ADD PRIMARY KEY(regno);
+Query OK, 1 row affected (0.06 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> desc student
+    -> ;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Regno    | int(3)      | NO   | PRI | 0       |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| gender   | varchar(1)  | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| mobileno | int(10)     | YES  |     | NULL    |       |
+| emis     | int(30)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+
+mysql> select * from student;
++-------+------------+--------+------------+-----------+----------+
+| Regno | name       | gender | dob        | mobileno  | emis     |
++-------+------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA | F      | 2005-05-29 | 944565599 | 26346282 |
++-------+------------+--------+------------+-----------+----------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE FACULTY
+    -> ADD CHECK(gender='M' OR 'F');
+ERROR 1146 (42S02): Table 'student.faculty' doesn't exist
+mysql> ALTER TABLE student
+    -> ADD CHECK(gender='M' OR 'F');
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++-------+------------+--------+------------+-----------+----------+
+| Regno | name       | gender | dob        | mobileno  | emis     |
++-------+------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA | F      | 2005-05-29 | 944565599 | 26346282 |
++-------+------------+--------+------------+-----------+----------+
+1 row in set (0.00 sec)
+
+mysql> desc student
+    -> ;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Regno    | int(3)      | NO   | PRI | 0       |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| gender   | varchar(1)  | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| mobileno | int(10)     | YES  |     | NULL    |       |
+| emis     | int(30)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+
+mysql> ALTER TABLE student
+    -> MODIFY emis int(30) PRIMARY KEY;
+ERROR 1068 (42000): Multiple primary key defined
+mysql> DESC student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Regno    | int(3)      | NO   | PRI | 0       |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| gender   | varchar(1)  | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| mobileno | int(10)     | YES  |     | NULL    |       |
+| emis     | int(30)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Regno    | int(3)      | NO   | PRI | 0       |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| gender   | varchar(1)  | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| mobileno | int(10)     | YES  |     | NULL    |       |
+| emis     | int(30)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+
+mysql> desc mark;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| regno   | int(6)      | YES  |     | NULL    |       |
+| name    | varchar(10) | YES  |     | NULL    |       |
+| marks   | int(3)      | YES  |     | NULL    |       |
+| subject | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> alter table mark add foreign key (regno) references student(Regno);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`student`.`#sql-2538_9`, CONSTRAINT `#sql-2538_9_ibfk_1` FOREIGN KEY (`regno`) REFERENCES `student` (`Regno`))
+mysql> desc faculty;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| facno    | varchar(4)  | YES  |     | NULL    |       |
+| facname  | varchar(15) | YES  |     | NULL    |       |
+| gender   | varchar(1)  | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| doj      | date        | YES  |     | NULL    |       |
+| MobileNo | int(10)     | YES  |     | NULL    |       |
+| regno    | int(10)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.05 sec)
+
+mysql> alter table faculty add foreign key(regno) references student(regno);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc faculty;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| facno    | varchar(4)  | YES  |     | NULL    |       |
+| facname  | varchar(15) | YES  |     | NULL    |       |
+| gender   | varchar(1)  | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| doj      | date        | YES  |     | NULL    |       |
+| MobileNo | int(10)     | YES  |     | NULL    |       |
+| regno    | int(10)     | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+mysql> select * from student;
++-------+------------+--------+------------+-----------+----------+
+| Regno | name       | gender | dob        | mobileno  | emis     |
++-------+------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7349 | VIGNESH    | M      | 2010-09-13 |  92738362 |  6363563 |
++-------+------------+--------+------------+-----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO student values ('9999','SURESHKUMAR','M','1976-12-18','944458999','87465839');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO student values ('9999','NAGALAXMI','F','1980-04-05','944411718','76579543');
+ERROR 1062 (23000): Duplicate entry '9999' for key 'PRIMARY'
+mysql> INSERT INTO student values ('7189','NAGALAXMI','F','1980-04-05','944411718','76579543');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++-------+-------------+--------+------------+-----------+----------+
+| Regno | name        | gender | dob        | mobileno  | emis     |
++-------+-------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA  | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7189 | NAGALAXMI   | F      | 1980-04-05 | 944411718 | 76579543 |
+|  7349 | VIGNESH     | M      | 2010-09-13 |  92738362 |  6363563 |
+|  9999 | SURESHKUMAR | M      | 1976-12-18 | 944458999 | 87465839 |
++-------+-------------+--------+------------+-----------+----------+
+4 rows in set (0.00 sec)
+Database changed
+mysql> select * from student;
++-------+------------+--------+------------+-----------+----------+
+| Regno | name       | gender | dob        | mobileno  | emis     |
++-------+------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7349 | VIGNESH    | M      | 2010-09-13 |  92738362 |  6363563 |
++-------+------------+--------+------------+-----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO student values ('9999','SURESHKUMAR','M','1976-12-18','944458999','87465839');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO student values ('9999','NAGALAXMI','F','1980-04-05','944411718','76579543');
+ERROR 1062 (23000): Duplicate entry '9999' for key 'PRIMARY'
+mysql> INSERT INTO student values ('7189','NAGALAXMI','F','1980-04-05','944411718','76579543');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++-------+-------------+--------+------------+-----------+----------+
+| Regno | name        | gender | dob        | mobileno  | emis     |
++-------+-------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA  | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7189 | NAGALAXMI   | F      | 1980-04-05 | 944411718 | 76579543 |
+|  7349 | VIGNESH     | M      | 2010-09-13 |  92738362 |  6363563 |
+|  9999 | SURESHKUMAR | M      | 1976-12-18 | 944458999 | 87465839 |
++-------+-------------+--------+------------+-----------+----------+
+4 rows in set (0.00 sec)
+mysql> INSERT INTO student values ('8659','RIYA','M','19807-08-02','7832538','656367');
+ERROR 1292 (22007): Incorrect date value: '19807-08-02' for column 'dob' at row 1
+mysql> INSERT INTO student values ('8659','RIYA','M','1987-08-02','7832538','656367');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++-------+-------------+--------+------------+-----------+----------+
+| Regno | name        | gender | dob        | mobileno  | emis     |
++-------+-------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA  | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7189 | NAGALAXMI   | F      | 1980-04-05 | 944411718 | 76579543 |
+|  7349 | VIGNESH     | M      | 2010-09-13 |  92738362 |  6363563 |
+|  8659 | RIYA        | M      | 1987-08-02 |   7832538 |   656367 |
+|  9999 | SURESHKUMAR | M      | 1976-12-18 | 944458999 | 87465839 |
++-------+-------------+--------+------------+-----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> update student
+    -> set regno=7654 where name='RIYA';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++-------+-------------+--------+------------+-----------+----------+
+| Regno | name        | gender | dob        | mobileno  | emis     |
++-------+-------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA  | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7189 | NAGALAXMI   | F      | 1980-04-05 | 944411718 | 76579543 |
+|  7349 | VIGNESH     | M      | 2010-09-13 |  92738362 |  6363563 |
+|  7654 | RIYA        | M      | 1987-08-02 |   7832538 |   656367 |
+|  9999 | SURESHKUMAR | M      | 1976-12-18 | 944458999 | 87465839 |
++-------+-------------+--------+------------+-----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> delete from student where name='RIYA';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++-------+-------------+--------+------------+-----------+----------+
+| Regno | name        | gender | dob        | mobileno  | emis     |
++-------+-------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA  | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7189 | NAGALAXMI   | F      | 1980-04-05 | 944411718 | 76579543 |
+|  7349 | VIGNESH     | M      | 2010-09-13 |  92738362 |  6363563 |
+|  9999 | SURESHKUMAR | M      | 1976-12-18 | 944458999 | 87465839 |
++-------+-------------+--------+------------+-----------+----------+
+4 rows in set (0.00 sec)
+mysql> desc student;
+ERROR 1046 (3D000): No database selected
+mysql> use student;
+Database changed
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Regno    | int(3)      | NO   | PRI | 0       |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| gender   | varchar(1)  | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| mobileno | int(10)     | YES  |     | NULL    |       |
+| emis     | int(30)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> select * from student;
++-------+-------------+--------+------------+-----------+----------+
+| Regno | name        | gender | dob        | mobileno  | emis     |
++-------+-------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA  | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7189 | NAGALAXMI   | F      | 1980-04-05 | 944411718 | 76579543 |
+|  7349 | VIGNESH     | M      | 2010-09-13 |  92738362 |  6363563 |
+|  9999 | SURESHKUMAR | M      | 1976-12-18 | 944458999 | 87465839 |
++-------+-------------+--------+------------+-----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee where Regno=1234;
+ERROR 1146 (42S02): Table 'student.employee' doesn't exist
+mysql> select * from student where Regno=1234;;
++-------+------------+--------+------------+-----------+----------+
+| Regno | name       | gender | dob        | mobileno  | emis     |
++-------+------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA | F      | 2005-05-29 | 944565599 | 26346282 |
++-------+------------+--------+------------+-----------+----------+
+1 row in set (0.01 sec)
+
+ERROR:
+No query specified
+
+mysql> select * from employee where Regno between 1234 and 7349;
+ERROR 1146 (42S02): Table 'student.employee' doesn't exist
+mysql> select * from student where Regno between 1234 and 7349;
++-------+------------+--------+------------+-----------+----------+
+| Regno | name       | gender | dob        | mobileno  | emis     |
++-------+------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA | F      | 2005-05-29 | 944565599 | 26346282 |
+|  7189 | NAGALAXMI  | F      | 1980-04-05 | 944411718 | 76579543 |
+|  7349 | VIGNESH    | M      | 2010-09-13 |  92738362 |  6363563 |
++-------+------------+--------+------------+-----------+----------+
+3 rows in set (0.01 sec)
+
+mysql> create table mark(regno int(6),name varchar(10), marks int(3));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc mark;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| regno | int(6)      | YES  |     | NULL    |       |
+| name  | varchar(10) | YES  |     | NULL    |       |
+| marks | int(3)      | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into mark values ('1234','KEERTHANAA','90');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into mark values ('7349','VIGNESH','98');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into mark values ('7658','RIYA','85');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from mark;
++-------+------------+-------+
+| regno | name       | marks |
++-------+------------+-------+
+|  1234 | KEERTHANAA |    90 |
+|  7349 | VIGNESH    |    98 |
+|  7658 | RIYA       |    85 |
++-------+------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select avg(marks) from mark;
++------------+
+| avg(marks) |
++------------+
+|    91.0000 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select max(marks) from mark;
++------------+
+| max(marks) |
++------------+
+|         98 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select min(marks) from mark;
++------------+
+| min(marks) |
++------------+
+|         85 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(marks) from mark;
++------------+
+| sum(marks) |
++------------+
+|        273 |
++------------+
+1 row in set (0.00 sec)
+mysql> select * from student where name LIKE '%AA';
++-------+------------+--------+------------+-----------+----------+
+| Regno | name       | gender | dob        | mobileno  | emis     |
++-------+------------+--------+------------+-----------+----------+
+|  1234 | KEERTHANAA | F      | 2005-05-29 | 944565599 | 26346282 |
++-------+------------+--------+------------+-----------+----------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name LIKE 'VI%';
++-------+---------+--------+------------+----------+---------+
+| Regno | name    | gender | dob        | mobileno | emis    |
++-------+---------+--------+------------+----------+---------+
+|  7349 | VIGNESH | M      | 2010-09-13 | 92738362 | 6363563 |
++-------+---------+--------+------------+----------+---------+
+1 row in set (0.00 sec)
+mysql> select * from mark where marks between 90 to 98;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to 98' at line 1
+mysql> select * from mark where marks between 90 and 98;
++-------+------------+-------+---------+
+| regno | name       | marks | subject |
++-------+------------+-------+---------+
+|  1234 | KEERTHANAA |    90 | maths   |
+|  7349 | VIGNESH    |    98 | maths   |
++-------+------------+-------+---------+
+2 rows in set (0.00 sec)
+mysql> select count(name) from student;
++-------------+
+| count(name) |
++-------------+
+|           4 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(name), regno from students
+    -> group by regno having count(name)>0;
+ERROR 1146 (42S02): Table 'student.students' doesn't exist
+mysql> select count(name), regno from student
+    -> group by regno having count(name)>0;
++-------------+-------+
+| count(name) | regno |
++-------------+-------+
+|           1 |  1234 |
+|           1 |  7189 |
+|           1 |  7349 |
+|           1 |  9999 |
++-------------+-------+
+4 rows in set (0.00 sec)
+mysql> select avg(marks) from mark
+    -> ;
++------------+
+| avg(marks) |
++------------+
+|    91.0000 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(marks) from mark
+    -> ;
++------------+
+| sum(marks) |
++------------+
+|        273 |
++------------+
+1 row in set (0.00 sec)
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About

@@ -1,0 +1,246 @@
+mysql> desc car;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(10)     | YES  |     | NULL    |       |
+| model | varchar(20) | YES  |     | NULL    |       |
+| year  | int(10)     | YES  |     | NULL    |       |
+| price | int(10)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table car
+    -> ADD place varchar(15);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from car;
+Empty set (0.00 sec)
+
+mysql> desc car;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(10)     | YES  |     | NULL    |       |
+| model | varchar(20) | YES  |     | NULL    |       |
+| year  | int(10)     | YES  |     | NULL    |       |
+| price | int(10)     | YES  |     | NULL    |       |
+| place | varchar(15) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> alter table car;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> drop column place;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'column place' at line 1
+mysql> alter table car
+    -> drop column place;
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc car;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(10)     | YES  |     | NULL    |       |
+| model | varchar(20) | YES  |     | NULL    |       |
+| year  | int(10)     | YES  |     | NULL    |       |
+| price | int(10)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table car
+    -> ADD primary key(id);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc car;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(10)     | NO   | PRI | 0       |       |
+| model | varchar(20) | YES  |     | NULL    |       |
+| year  | int(10)     | YES  |     | NULL    |       |
+| price | int(10)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc customer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int(10)     | YES  |     | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(25) | YES  |     | NULL    |       |
+| email   | varchar(15) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> alter table customer
+    -> ADD foreign key(id) references car(id);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int(10)     | YES  | MUL | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(25) | YES  |     | NULL    |       |
+| email   | varchar(15) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into car values('101','AD20','2022','5000000');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into car values('102','lm20','2023','4000000');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into car values('106','fr40','2024','7000000');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into car values('1010','lam40','2025','9000000');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from car;
++------+-------+------+---------+
+| id   | model | year | price   |
++------+-------+------+---------+
+|  101 | AD20  | 2022 | 5000000 |
+|  102 | lm20  | 2023 | 4000000 |
+|  106 | fr40  | 2024 | 7000000 |
+| 1010 | lam40 | 2025 | 9000000 |
++------+-------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> insert into customer values('101','santhosh','adhar','sandy');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into customer values('102','keerthanaa','pan','keerth');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into customer values('103','sakthi','adhar','lizzz');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into customer values('104','vijay','pan','vj');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into customer values('105','saravana','id','saro');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from customer;
++-------+------------+---------+--------+
+| Regno | name       | idproof | email  |
++-------+------------+---------+--------+
+| 101   | santhosh   | adhar   | sandy  |
+| 102   | keerthanaa | pan     | keerth |
+| 103   | sakthi     | adhar   | lizzz  |
+| 104   | vijay      | pan     | vj     |
+| 105   | saravana   | id      | saro   |
++-------+------------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> update customer set name='tamil' where Regno='105';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++-------+------------+---------+--------+
+| Regno | name       | idproof | email  |
++-------+------------+---------+--------+
+| 101   | santhosh   | adhar   | sandy  |
+| 102   | keerthanaa | pan     | keerth |
+| 103   | sakthi     | adhar   | lizzz  |
+| 104   | vijay      | pan     | vj     |
+| 105   | tamil      | id      | saro   |
++-------+------------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> insert into customer values('106','saravana','id','sarav');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from customer;
++-------+------------+---------+--------+
+| Regno | name       | idproof | email  |
++-------+------------+---------+--------+
+| 101   | santhosh   | adhar   | sandy  |
+| 102   | keerthanaa | pan     | keerth |
+| 103   | sakthi     | adhar   | lizzz  |
+| 104   | vijay      | pan     | vj     |
+| 105   | tamil      | id      | saro   |
+| 106   | saravana   | id      | sarav  |
++-------+------------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> delete from customer where Regno='106';
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from customer;
++-------+------------+---------+--------+
+| Regno | name       | idproof | email  |
++-------+------------+---------+--------+
+| 101   | santhosh   | adhar   | sandy  |
+| 102   | keerthanaa | pan     | keerth |
+| 103   | sakthi     | adhar   | lizzz  |
+| 104   | vijay      | pan     | vj     |
+| 105   | tamil      | id      | saro   |
++-------+------------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer where name like '%sh';
++-------+----------+---------+-------+
+| Regno | name     | idproof | email |
++-------+----------+---------+-------+
+| 101   | santhosh | adhar   | sandy |
++-------+----------+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer where name not like '%sh';
++-------+------------+---------+--------+
+| Regno | name       | idproof | email  |
++-------+------------+---------+--------+
+| 102   | keerthanaa | pan     | keerth |
+| 103   | sakthi     | adhar   | lizzz  |
+| 104   | vijay      | pan     | vj     |
+| 105   | tamil      | id      | saro   |
++-------+------------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customer where Regno between 102 and 105;
++-------+------------+---------+--------+
+| Regno | name       | idproof | email  |
++-------+------------+---------+--------+
+| 102   | keerthanaa | pan     | keerth |
+| 103   | sakthi     | adhar   | lizzz  |
+| 104   | vijay      | pan     | vj     |
+| 105   | tamil      | id      | saro   |
++-------+------------+---------+--------+
+4 rows in set (0.03 sec)
+
+mysql> select name from customer where idproof='pan';
++------------+
+| name       |
++------------+
+| keerthanaa |
+| vijay      |
++------------+
+2 rows in set (0.00 sec)
+
+mysql>
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About

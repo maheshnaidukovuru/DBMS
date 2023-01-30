@@ -1,0 +1,16 @@
+mysql> use collage;
+Database changed
+mysql> CREATE FUNCTION hello (s CHAR(20))
+    -> RETURNS CHAR(50) DETERMINISTIC
+    ->          RETURN CONCAT('Hello, ',s,'!');
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT shinzo('sasageo');
+ERROR 1305 (42000): FUNCTION collage.shinzo does not exist
+mysql> SELECT hello('world');
++----------------+
+| hello('world') |
++----------------+
+| Hello, world!  |
++----------------+
+1 row in set (0.00 sec)
